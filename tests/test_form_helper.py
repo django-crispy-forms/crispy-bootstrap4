@@ -16,7 +16,7 @@ from crispy_forms.utils import render_crispy_form
 from django import forms
 from django.forms.models import formset_factory
 from django.middleware.csrf import _get_new_csrf_string
-from django.template import Context, Template, TemplateSyntaxError
+from django.template import Context, Template
 from django.test.html import parse_html
 from django.urls import reverse
 
@@ -25,7 +25,6 @@ from .forms import (
     SampleForm7,
     SampleForm8,
     SampleFormWithMedia,
-    SampleFormWithMultiValueField,
 )
 from .utils import parse_expected, parse_form
 
@@ -124,11 +123,13 @@ def test_form_show_errors_non_field_errors(settings):
         # Removed "for = ..." from MultiWidget's <label>.
         # https://github.com/django/django/commit/c6c6cd3c5ad9c36795bb120e521590424f034ae4
         expected = parse_expected(
-            f"{settings.CRISPY_TEMPLATE_PACK}/test_form_helper/test_form_show_errors_non_field_errors_true_lte40.html"
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_true_lte40.html"
         )
     else:
         expected = parse_expected(
-            f"{settings.CRISPY_TEMPLATE_PACK}/test_form_helper/test_form_show_errors_non_field_errors_true.html"
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_true.html"
         )
     assert parse_html(template.render(c)) == expected
 
@@ -138,11 +139,13 @@ def test_form_show_errors_non_field_errors(settings):
     # Ensure errors were not rendered
     if django.VERSION < (4, 1):
         expected = parse_expected(
-            f"{settings.CRISPY_TEMPLATE_PACK}/test_form_helper/test_form_show_errors_non_field_errors_false_lte40.html"
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_false_lte40.html"
         )
     else:
         expected = parse_expected(
-            f"{settings.CRISPY_TEMPLATE_PACK}/test_form_helper/test_form_show_errors_non_field_errors_false.html"
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_false.html"
         )
     assert parse_html(template.render(c)) == expected
 
@@ -286,7 +289,8 @@ def test_CSRF_token_POST_form():
 
     # The middleware only initializes the CSRF token when processing a real request
     # So using RequestContext or csrf(request) here does not work.
-    # Instead I set the key `csrf_token` to a CSRF token manually, which `csrf_token` tag uses
+    # Instead I set the key `csrf_token` to a CSRF token manually, which `csrf_token`
+    # tag uses
     c = Context(
         {
             "form": SampleForm(),
@@ -601,8 +605,8 @@ def test_label_class_and_field_class_bs4_offset_when_horizontal():
 
     assert '<div class="form-group row">' in html
     assert (
-        '<div class="offset-sm-3 offset-md-4 offset-5 offset-lg-4 col-sm-8 col-md-6 col-7 col-lg-8">'
-        in html
+        '<div class="offset-sm-3 offset-md-4 offset-5 offset-lg-4 col-sm-8 '
+        'col-md-6 col-7 col-lg-8">' in html
     )
     assert html.count("col-sm-8") == 7
     assert html.count("col-md-6") == 7

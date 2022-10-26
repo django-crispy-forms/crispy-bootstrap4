@@ -3,12 +3,9 @@ from crispy_forms.bootstrap import Field, InlineCheckboxes, UneditableField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import (
     HTML,
-    ButtonHolder,
     Column,
-    Div,
     Fieldset,
     Layout,
-    MultiField,
     Row,
     Submit,
 )
@@ -327,19 +324,23 @@ def test_formset_layout():
     # Check formset fields
     assert contains_partial(
         html,
-        '<input id="id_form-TOTAL_FORMS" name="form-TOTAL_FORMS" type="hidden" value="3"/>',
+        '<input id="id_form-TOTAL_FORMS" name="form-TOTAL_FORMS" '
+        'type="hidden" value="3"/>',
     )
     assert contains_partial(
         html,
-        '<input id="id_form-INITIAL_FORMS" name="form-INITIAL_FORMS" type="hidden" value="0"/>',
+        '<input id="id_form-INITIAL_FORMS" name="form-INITIAL_FORMS" '
+        'type="hidden" value="0"/>',
     )
     assert contains_partial(
         html,
-        '<input id="id_form-MAX_NUM_FORMS" name="form-MAX_NUM_FORMS" type="hidden" value="1000"/>',
+        '<input id="id_form-MAX_NUM_FORMS" name="form-MAX_NUM_FORMS" '
+        'type="hidden" value="1000"/>',
     )
     assert contains_partial(
         html,
-        '<input id="id_form-MIN_NUM_FORMS" name="form-MIN_NUM_FORMS" type="hidden" value="0"/>',
+        '<input id="id_form-MIN_NUM_FORMS" name="form-MIN_NUM_FORMS" '
+        'type="hidden" value="0"/>',
     )
     assert html.count("hidden") == 5
 
@@ -377,15 +378,18 @@ def test_modelformset_layout():
 
     assert contains_partial(
         html,
-        '<input id="id_form-TOTAL_FORMS" name="form-TOTAL_FORMS" type="hidden" value="3"/>',
+        '<input id="id_form-TOTAL_FORMS" name="form-TOTAL_FORMS" '
+        'type="hidden" value="3"/>',
     )
     assert contains_partial(
         html,
-        '<input id="id_form-INITIAL_FORMS" name="form-INITIAL_FORMS" type="hidden" value="0"/>',
+        '<input id="id_form-INITIAL_FORMS" name="form-INITIAL_FORMS" '
+        'type="hidden" value="0"/>',
     )
     assert contains_partial(
         html,
-        '<input id="id_form-MAX_NUM_FORMS" name="form-MAX_NUM_FORMS" type="hidden" value="1000"/>',
+        '<input id="id_form-MAX_NUM_FORMS" name="form-MAX_NUM_FORMS" '
+        'type="hidden" value="1000"/>',
     )
 
     assert html.count('name="form-0-email"') == 1
@@ -520,7 +524,8 @@ def test_use_custom_control_is_used_in_checkboxes():
 
     form.helper.use_custom_control = False
     assert parse_form(form) == parse_expected(
-        "bootstrap4/test_layout/test_use_custom_control_is_used_in_checkboxes_false.html"
+        "bootstrap4/test_layout/"
+        "test_use_custom_control_is_used_in_checkboxes_false.html"
     )
 
     form = CheckboxesSampleForm({})
@@ -531,7 +536,8 @@ def test_use_custom_control_is_used_in_checkboxes():
         "numeric_multiple_checkboxes",
     )
     assert parse_form(form) == parse_expected(
-        "bootstrap4/test_layout/test_use_custom_control_is_used_in_checkboxes_true_failing.html"
+        "bootstrap4/test_layout/"
+        "test_use_custom_control_is_used_in_checkboxes_true_failing.html"
     )
 
 
@@ -562,7 +568,8 @@ def test_use_custom_control_is_used_in_radio():
         "radio_select",
     )
     assert parse_form(form) == parse_expected(
-        "bootstrap4/test_layout/test_use_custom_control_is_used_in_radio_true_failing.html"
+        "bootstrap4/test_layout/"
+        "test_use_custom_control_is_used_in_radio_true_failing.html"
     )
 
 
@@ -684,11 +691,13 @@ def test_uneditable_field():
     [
         (
             True,
-            "bootstrap4/test_layout/test_use_custom_control_in_uneditable_select_true.html",
+            "bootstrap4/test_layout/"
+            "test_use_custom_control_in_uneditable_select_true.html",
         ),
         (
             False,
-            "bootstrap4/test_layout/test_use_custom_control_in_uneditable_select_false.html",
+            "bootstrap4/test_layout/"
+            "test_use_custom_control_in_uneditable_select_false.html",
         ),
     ],
 )
@@ -799,5 +808,5 @@ def test_radio_attrs():
     form = TestForm()
     form.helper = FormHelper()
     assert parse_form(form) == parse_expected(
-        f"bootstrap4/test_layout/test_radio_attrs.html"
+        "bootstrap4/test_layout/test_radio_attrs.html"
     )

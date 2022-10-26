@@ -22,8 +22,6 @@ from crispy_forms.layout import HTML, Field, Layout, MultiWidgetField, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
 from django.template import Context, Template
-from django.utils.translation import activate, deactivate
-from django.utils.translation import gettext as _
 
 from .forms import (
     CheckboxesSampleForm,
@@ -299,7 +297,8 @@ class TestBootstrapLayoutObjects:
         assert (
             html.count(
                 '<ul class="nav nav-tabs"> <li class="nav-item">'
-                '<a class="nav-link active" href="#custom-name" data-toggle="tab">One</a></li>'
+                '<a class="nav-link active" href="#custom-name" data-toggle="tab">'
+                "One</a></li>"
             )
             == 1
         )
@@ -376,7 +375,7 @@ class TestBootstrapLayoutObjects:
             )
         )
         assert parse_form(form) == parse_expected(
-            f"{settings.CRISPY_TEMPLATE_PACK}/test_layout_objects/test_field_with_buttons.html"
+            "bootstrap4/test_layout_objects/test_field_with_buttons.html"
         )
 
     def test_hidden_fields(self):
