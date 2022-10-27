@@ -1,14 +1,7 @@
 import pytest
 from crispy_forms.bootstrap import Field, InlineCheckboxes, UneditableField
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import (
-    HTML,
-    Column,
-    Fieldset,
-    Layout,
-    Row,
-    Submit,
-)
+from crispy_forms.layout import HTML, Column, Fieldset, Layout, Row, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
 from django.forms.models import formset_factory, modelformset_factory

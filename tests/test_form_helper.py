@@ -20,12 +20,7 @@ from django.template import Context, Template
 from django.test.html import parse_html
 from django.urls import reverse
 
-from .forms import (
-    SampleForm,
-    SampleForm7,
-    SampleForm8,
-    SampleFormWithMedia,
-)
+from .forms import SampleForm, SampleForm7, SampleForm8, SampleFormWithMedia
 from .utils import parse_expected, parse_form
 
 
