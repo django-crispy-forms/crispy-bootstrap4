@@ -1,4 +1,5 @@
 import pytest
+from crispy_forms import __version__
 from crispy_forms.bootstrap import Field, InlineCheckboxes, UneditableField
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import HTML, Column, Fieldset, Layout, Row, Submit
@@ -29,6 +30,12 @@ from .forms import (
 )
 from .test_settings import TEMPLATE_DIRS
 from .utils import contains_partial, parse_expected, parse_form
+
+CONVERTERS = {
+    "textinput": "textinput textInput",
+    "fileinput": "fileinput fileUpload",
+    "passwordinput": "textinput textInput",
+}
 
 
 def test_invalid_unicode_characters(settings):
@@ -618,6 +625,7 @@ def test_update_attributes_class():
     assert html.count(' class="hello hello2') == 1
 
 
+@override_settings(CRISPY_CLASS_CONVERTERS=CONVERTERS)
 def test_file_field():
     form = FileForm()
     form.helper = FormHelper()
@@ -668,6 +676,10 @@ def test_form_control_size():
     )
 
 
+@pytest.mark.skipif(
+    __version__[0] == "1",
+    reason="#1224 changed editable field behaviour post crispy forms 1.x",
+)
 def test_uneditable_field():
     form = SampleForm()
     form.helper = FormHelper()
@@ -693,6 +705,10 @@ def test_uneditable_field():
             "test_use_custom_control_in_uneditable_select_false.html",
         ),
     ],
+)
+@pytest.mark.skipif(
+    __version__[0] == "1",
+    reason="#1224 changed editable field behaviour post crispy forms 1.x",
 )
 def test_use_custom_control_in_uneditable_select(use_custom_control, expected_html):
     form = SelectSampleForm()
@@ -771,6 +787,9 @@ def test_fundamentals():
     )
 
 
+@pytest.mark.skipif(
+    __version__[0] == "1", reason="#1250 removed custom-control post crispy forms 1.x"
+)
 def test_table_inline_formset_checkbox():
     class TestForm(forms.Form):
         box_one = forms.CharField(label="box one", widget=forms.CheckboxInput())

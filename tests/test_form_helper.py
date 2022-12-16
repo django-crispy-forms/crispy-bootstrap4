@@ -17,11 +17,18 @@ from django import forms
 from django.forms.models import formset_factory
 from django.middleware.csrf import _get_new_csrf_string
 from django.template import Context, Template
+from django.test import override_settings
 from django.test.html import parse_html
 from django.urls import reverse
 
 from .forms import SampleForm, SampleForm7, SampleForm8, SampleFormWithMedia
 from .utils import parse_expected, parse_form
+
+CONVERTERS = {
+    "textinput": "textinput textInput inputtext",
+    "fileinput": "fileinput fileUpload",
+    "passwordinput": "textinput textInput",
+}
 
 
 def test_inputs():
@@ -98,6 +105,7 @@ def test_form_with_helper_without_layout():
     assert 'id="this-form-rocks"' not in html
 
 
+@override_settings(CRISPY_CLASS_CONVERTERS=CONVERTERS)
 def test_form_show_errors_non_field_errors(settings):
     form = SampleForm({"password1": "wargame", "password2": "god"})
     form.helper = FormHelper()
@@ -446,6 +454,7 @@ def test_helper_std_field_template_no_layout():
         assert html.count('id="div_id_%s"' % field) == 1
 
 
+@override_settings(CRISPY_CLASS_CONVERTERS=CONVERTERS)
 def test_bootstrap_form_show_errors_bs4():
     form = SampleForm(
         {
