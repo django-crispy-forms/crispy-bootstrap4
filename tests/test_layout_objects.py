@@ -1,5 +1,7 @@
 import re
 
+import pytest
+from crispy_forms import __version__
 from crispy_forms.bootstrap import (
     Accordion,
     AccordionGroup,
@@ -22,6 +24,7 @@ from crispy_forms.layout import HTML, Field, Layout, MultiWidgetField, Submit
 from crispy_forms.utils import render_crispy_form
 from django import forms
 from django.template import Context, Template
+from django.test import override_settings
 
 from .forms import (
     CheckboxesSampleForm,
@@ -32,6 +35,12 @@ from .forms import (
     SampleFormCustomWidgets,
 )
 from .utils import parse_expected, parse_form
+
+CONVERTERS = {
+    "textinput": "textinput textInput",
+    "fileinput": "fileinput fileUpload",
+    "passwordinput": "textinput textInput",
+}
 
 
 def test_multiwidget_field():
@@ -138,6 +147,7 @@ class TestBootstrapLayoutObjects:
         else:
             assert 'class="checkbox"' in html
 
+    @override_settings(CRISPY_CLASS_CONVERTERS=CONVERTERS)
     def test_prepended_appended_text(self, settings):
         test_form = SampleForm()
         test_form.helper = FormHelper()
@@ -358,6 +368,7 @@ class TestBootstrapLayoutObjects:
         assert 'class="first"' in html
         assert 'class="second"' in html
 
+    @override_settings(CRISPY_CLASS_CONVERTERS=CONVERTERS)
     def test_field_with_buttons(self, settings):
         form = SampleForm()
         form.helper = FormHelper()
@@ -488,6 +499,10 @@ class TestBootstrapLayoutObjects:
             "bootstrap4/test_layout_objects/bootstrap_modal_with_kwargs.html"
         )
 
+    @pytest.mark.skipif(
+        __version__[0] == "1",
+        reason="#1230 is post 1.x and fixed double class attributes bug",
+    )
     def test_FormActions(self, settings):
         form = SampleForm()
         form.helper = FormHelper()
