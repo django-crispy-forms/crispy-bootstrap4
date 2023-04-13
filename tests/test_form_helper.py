@@ -632,15 +632,6 @@ def test_form_group_with_form_inline_bs4():
     html = render_crispy_form(form)
     assert '<div class="form-group row">' not in html
 
-
-def test_template_pack_bs4():
-    form = SampleForm()
-    form.helper = FormHelper()
-    form.helper.template_pack = "bootstrap3"
-    html = render_crispy_form(form)
-    assert "controls" in html  # controls is bootstrap3 only
-
-
 def test_passthrough_context():
     """
     Test to ensure that context is passed through implicitly from outside of
