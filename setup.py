@@ -2,7 +2,7 @@ import os
 
 from setuptools import setup
 
-VERSION = "2022.1"
+VERSION = "2023.1"
 
 
 def get_long_description():
@@ -40,6 +40,7 @@ setup(
         "Framework :: Django :: 3.2",
         "Framework :: Django :: 4.0",
         "Framework :: Django :: 4.1",
+        "Framework :: Django :: 4.2",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
         "Programming Language :: Python :: 3",
