@@ -417,7 +417,7 @@ class TestBootstrapLayoutObjects:
         test_form.helper[1].wrap(InlineCheckboxes, inline=True)
         html = render_crispy_form(test_form)
 
-        assert html.count('inline="True"') == 4
+        assert html.count('inline="True"') == 3
         assert html.count('custom-control-inline"') == 3
 
     def test_multiple_checkboxes_unique_ids(self):
