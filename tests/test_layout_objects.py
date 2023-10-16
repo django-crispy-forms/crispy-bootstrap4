@@ -461,7 +461,10 @@ class TestBootstrapLayoutObjects:
         form.helper = FormHelper()
         form.helper.layout = Layout("checkbox_select_multiple")
         if django.VERSION < (5, 0):
-            expected = "bootstrap4/test_layout_objects/test_grouped_checkboxes_failing_lt50.html"
+            expected = (
+                "bootstrap4/test_layout_objects/"
+                "test_grouped_checkboxes_failing_lt50.html"
+            )
         else:
             expected = (
                 "bootstrap4/test_layout_objects/test_grouped_checkboxes_failing.html"

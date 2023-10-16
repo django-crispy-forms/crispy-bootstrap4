@@ -537,9 +537,15 @@ def test_use_custom_control_is_used_in_checkboxes():
         "numeric_multiple_checkboxes",
     )
     if django.VERSION < (5, 0):
-        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_checkboxes_true_failing_lt50.html"
+        expected = (
+            "bootstrap4/test_layout/"
+            "test_use_custom_control_is_used_in_checkboxes_true_failing_lt50.html"
+        )
     else:
-        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_checkboxes_true_failing.html"
+        expected = (
+            "bootstrap4/test_layout/"
+            "test_use_custom_control_is_used_in_checkboxes_true_failing.html"
+        )
     assert parse_form(form) == parse_expected(expected)
 
 
@@ -570,9 +576,15 @@ def test_use_custom_control_is_used_in_radio():
         "radio_select",
     )
     if django.VERSION < (5, 0):
-        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_radio_true_failing_lt50.html"
+        expected = (
+            "bootstrap4/test_layout/"
+            "test_use_custom_control_is_used_in_radio_true_failing_lt50.html"
+        )
     else:
-        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_radio_true_failing.html"
+        expected = (
+            "bootstrap4/test_layout/"
+            "test_use_custom_control_is_used_in_radio_true_failing.html"
+        )
     assert parse_form(form) == parse_expected(expected)
 
 
