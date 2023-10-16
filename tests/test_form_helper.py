@@ -122,12 +122,10 @@ def test_form_show_errors_non_field_errors(settings):
     # First we render with errors
     c = Context({"testForm": form})
     # Ensure those errors were rendered
-    if django.VERSION < (4, 1):
-        # Removed "for = ..." from MultiWidget's <label>.
-        # https://github.com/django/django/commit/c6c6cd3c5ad9c36795bb120e521590424f034ae4
+    if django.VERSION < (5, 0):
         expected = parse_expected(
             "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_true_lte40.html"
+            "test_form_show_errors_non_field_errors_true_lt50.html"
         )
     else:
         expected = parse_expected(
@@ -140,10 +138,10 @@ def test_form_show_errors_non_field_errors(settings):
     form.helper.form_show_errors = False
     c = Context({"testForm": form})
     # Ensure errors were not rendered
-    if django.VERSION < (4, 1):
+    if django.VERSION < (5, 0):
         expected = parse_expected(
             "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_false_lte40.html"
+            "test_form_show_errors_non_field_errors_false_lt50.html"
         )
     else:
         expected = parse_expected(
@@ -475,13 +473,25 @@ def test_bootstrap_form_show_errors_bs4():
     )
     form.is_valid()
     form.helper.form_show_errors = True
-    assert parse_form(form) == parse_expected(
-        "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true.html"
-    )
+    if django.VERSION < (5, 0):
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt50.html"
+        )
+    else:
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true.html"
+        )
+    assert parse_form(form) == parse_expected(expected)
     form.helper.form_show_errors = False
-    assert parse_form(form) == parse_expected(
-        "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false.html"
-    )
+    if django.VERSION < (5, 0):
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt50.html"
+        )
+    else:
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false.html"
+        )
+    assert parse_form(form) == parse_expected(expected)
 
 
 def test_error_text_inline(settings):
