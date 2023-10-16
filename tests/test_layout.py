@@ -1,3 +1,4 @@
+import django
 import pytest
 from crispy_forms import __version__
 from crispy_forms.bootstrap import Field, InlineCheckboxes, UneditableField
@@ -535,10 +536,11 @@ def test_use_custom_control_is_used_in_checkboxes():
         InlineCheckboxes("alphacheckboxes"),
         "numeric_multiple_checkboxes",
     )
-    assert parse_form(form) == parse_expected(
-        "bootstrap4/test_layout/"
-        "test_use_custom_control_is_used_in_checkboxes_true_failing.html"
-    )
+    if django.VERSION < (5, 0):
+        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_checkboxes_true_failing_lt50.html"
+    else:
+        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_checkboxes_true_failing.html"
+    assert parse_form(form) == parse_expected(expected)
 
 
 def test_use_custom_control_is_used_in_radio():
@@ -567,10 +569,11 @@ def test_use_custom_control_is_used_in_radio():
     form.helper.layout = Layout(
         "radio_select",
     )
-    assert parse_form(form) == parse_expected(
-        "bootstrap4/test_layout/"
-        "test_use_custom_control_is_used_in_radio_true_failing.html"
-    )
+    if django.VERSION < (5, 0):
+        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_radio_true_failing_lt50.html"
+    else:
+        expected = "bootstrap4/test_layout/test_use_custom_control_is_used_in_radio_true_failing.html"
+    assert parse_form(form) == parse_expected(expected)
 
 
 @pytest.mark.parametrize(
