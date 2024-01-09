@@ -26,8 +26,8 @@
         {% endif %}
 
         {% if not field|is_checkboxselectmultiple and not field|is_radioselect %}
-            {% if field|is_checkbox and form_show_labels %}
-                {%if use_custom_control%}
+            {% if field|is_checkbox %}
+                {% if use_custom_control %}
                     {% if field.errors %}
                         {% crispy_field field 'class' 'custom-control-input is-invalid' %}
                     {% else %}
@@ -40,9 +40,11 @@
                         {% crispy_field field 'class' 'form-check-input' %}
                     {% endif %}
                 {% endif %}
+                {% if form_show_labels %}
                 <label for="{{ field.id_for_label }}" class="{%if use_custom_control%}custom-control-label{% else %}form-check-label{% endif %}{% if field.field.required %} requiredField{% endif %}">
                     {{ field.label }}{% if field.field.required %}<span class="asteriskField">*</span>{% endif %}
                 </label>
+                {% endif %}
                 {% include 'bootstrap4/layout/help_text_and_errors.html' %}
             {% elif field|is_file and use_custom_control  %}
                 {% include 'bootstrap4/layout/field_file.html' %}
