@@ -1,5 +1,9 @@
 # CHANGELOG FOR CRISPY-BOOTSTRAP4
 
+## 2024.1 (2024-02-27)
+
+* Enabled custom-control checkbox inputs when `show_form_labels` is False.
+
 ## 2023.1 (2023-10-16)
 
 * Confirmed support for Django 4.2.
