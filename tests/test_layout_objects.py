@@ -333,7 +333,7 @@ class TestBootstrapLayoutObjects:
                     "one",
                     "first_name",
                     css_id="custom-name",
-                    css_class="first-tab-class active",
+                    css_class="first-tab-class",
                 ),
                 Tab("two", "password1", "password2"),
                 css_class="test-tab-holder-class",
