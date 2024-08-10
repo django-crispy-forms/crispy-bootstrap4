@@ -247,6 +247,37 @@ class TestBootstrapLayoutObjects:
         assert html.count('name="password1"') == 1
         assert html.count('name="password2"') == 1
 
+    def test_accordion_css_class_is_applied(self):
+        classes = "one two three"
+        test_form = SampleForm()
+        test_form.helper = FormHelper()
+        test_form.helper.form_tag = False
+        test_form.helper.layout = Layout(
+            Accordion(
+                AccordionGroup("one", "first_name"),
+                css_class=classes,
+                css_id="super-accordion",
+            )
+        )
+        html = render_crispy_form(test_form)
+
+        assert html.count('<div class="%s" id="super-accordion"' % classes) == 1
+
+    def test_accordion_group_css_class_is_applied(self):
+        classes = "one two three"
+        test_form = SampleForm()
+        test_form.helper = FormHelper()
+        test_form.helper.form_tag = False
+        test_form.helper.layout = Layout(
+            Accordion(
+                AccordionGroup("one", "first_name"),
+                AccordionGroup("two", "password1", "password2", css_class=classes),
+            )
+        )
+        html = render_crispy_form(test_form)
+
+        assert html.count('<div class="card mb-2 %s"' % classes) == 1
+
     def test_accordion_active_false_not_rendered(self):
         test_form = SampleForm()
         test_form.helper = FormHelper()
@@ -302,30 +333,15 @@ class TestBootstrapLayoutObjects:
                     "one",
                     "first_name",
                     css_id="custom-name",
-                    css_class="first-tab-class active",
+                    css_class="first-tab-class",
                 ),
                 Tab("two", "password1", "password2"),
+                css_class="test-tab-holder-class",
             )
         )
-        html = render_crispy_form(test_form)
-
-        assert (
-            html.count(
-                '<ul class="nav nav-tabs"> <li class="nav-item">'
-                '<a class="nav-link active" href="#custom-name" data-toggle="tab">'
-                "One</a></li>"
-            )
-            == 1
+        assert parse_form(test_form) == parse_expected(
+            "bootstrap4/test_layout_objects/test_tab_and_tab_holder.html"
         )
-        assert html.count("tab-pane") == 2
-
-        assert html.count('class="tab-pane first-tab-class active"') == 1
-
-        assert html.count('<div id="custom-name"') == 1
-        assert html.count('<div id="two"') == 1
-        assert html.count('name="first_name"') == 1
-        assert html.count('name="password1"') == 1
-        assert html.count('name="password2"') == 1
 
     def test_tab_helper_reuse(self):
         # this is a proper form, according to the docs.

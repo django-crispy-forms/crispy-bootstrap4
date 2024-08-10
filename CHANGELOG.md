@@ -1,5 +1,10 @@
 # CHANGELOG FOR CRISPY-BOOTSTRAP4
 
+## TBC
+
+* Fixed ignoring of `css_class` attribute in `accordion.html`, `accordion-group.html` and `tab.html` templates.
+* Bumped the minimum supported version of django-crispy-forms to 2.3.
+
 ## 2024.1 (2024-02-27)
 
 * Enabled custom-control checkbox inputs when `show_form_labels` is False.
