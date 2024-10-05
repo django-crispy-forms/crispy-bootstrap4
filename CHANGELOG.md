@@ -1,6 +1,6 @@
 # CHANGELOG FOR CRISPY-BOOTSTRAP4
 
-## TBC
+## 2024.10 (2024-10-05)
 
 * Fixed ignoring of `css_class` attribute in `accordion.html`, `accordion-group.html` and `tab.html` templates.
 * Bumped the minimum supported version of django-crispy-forms to 2.3.
