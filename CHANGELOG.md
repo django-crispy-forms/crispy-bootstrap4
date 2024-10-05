@@ -4,6 +4,7 @@
 
 * Fixed ignoring of `css_class` attribute in `accordion.html`, `accordion-group.html` and `tab.html` templates.
 * Bumped the minimum supported version of django-crispy-forms to 2.3.
+* Confirmed support for Django 5.1.
 
 ## 2024.1 (2024-02-27)
 
