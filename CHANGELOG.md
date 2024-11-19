@@ -1,5 +1,9 @@
 # CHANGELOG FOR CRISPY-BOOTSTRAP4
 
+## Next Release
+
+* Added support for Python 3.13.
+
 ## 2024.10 (2024-10-05)
 
 * Fixed ignoring of `css_class` attribute in `accordion.html`, `accordion-group.html` and `tab.html` templates.
