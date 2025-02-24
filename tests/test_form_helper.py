@@ -127,6 +127,11 @@ def test_form_show_errors_non_field_errors(settings):
             "bootstrap4/test_form_helper/"
             "test_form_show_errors_non_field_errors_true_lt50.html"
         )
+    elif django.VERSION < (5, 2):
+        expected = parse_expected(
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_true_lt52.html"
+        )
     else:
         expected = parse_expected(
             "bootstrap4/test_form_helper/"
@@ -142,6 +147,11 @@ def test_form_show_errors_non_field_errors(settings):
         expected = parse_expected(
             "bootstrap4/test_form_helper/"
             "test_form_show_errors_non_field_errors_false_lt50.html"
+        )
+    elif django.VERSION < (5, 2):
+        expected = parse_expected(
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_false_lt52.html"
         )
     else:
         expected = parse_expected(
@@ -477,6 +487,10 @@ def test_bootstrap_form_show_errors_bs4():
         expected = (
             "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt50.html"
         )
+    elif django.VERSION < (5, 2):
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt52.html"
+        )
     else:
         expected = (
             "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true.html"
@@ -486,6 +500,10 @@ def test_bootstrap_form_show_errors_bs4():
     if django.VERSION < (5, 0):
         expected = (
             "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt50.html"
+        )
+    elif django.VERSION < (5, 2):
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt52.html"
         )
     else:
         expected = (
