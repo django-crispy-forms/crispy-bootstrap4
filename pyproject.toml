@@ -1,0 +1,60 @@
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = [
+  "setuptools>=61",
+]
+
+[project]
+name="crispy-bootstrap4"
+description="Bootstrap4 template pack for django-crispy-forms"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [{name = "David Smith"}]
+requires-python = ">=3.8"
+classifiers=[
+  "Environment :: Web Environment",
+  "Development Status :: 5 - Production/Stable",
+  "Framework :: Django",
+  "Framework :: Django :: 4.2",
+  "Framework :: Django :: 5.0",
+  "Framework :: Django :: 5.1",
+  "Framework :: Django :: 5.2",
+  "Operating System :: OS Independent",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Internet :: WWW/HTTP",
+  "Topic :: Internet :: WWW/HTTP :: Dynamic Content",
+  "Topic :: Software Development :: Libraries :: Python Modules",
+]
+dynamic = [
+  "version",
+]
+dependencies = [
+  "django>=4.2",
+  "django-crispy-forms>=2.3",
+]
+[project.optional-dependencies]
+test = [
+  "pytest",
+  "pytest-django",
+]
+[project.urls]
+"CI" = "https://github.com/django-crispy-forms/crispy-bootstrap4/actions"
+"Changelog" = "https://github.com/django-crispy-forms/crispy-bootstrap4/releases"
+"Homepage" = "https://github.com/django-crispy-forms/crispy-bootstrap4"
+"Issues" = "https://github.com/django-crispy-forms/crispy-bootstrap4/issues"
+
+[tool.setuptools.dynamic]
+version = {attr = "crispy_bootstrap4.__version__"}
+
+[tool.isort]
+profile = "black"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE= "tests.test_settings"
