@@ -3,6 +3,7 @@
 ## Next Release
 
 * Added support for Python 3.13.
+* Added support for Django 5.2.
 
 ## 2024.10 (2024-10-05)
 

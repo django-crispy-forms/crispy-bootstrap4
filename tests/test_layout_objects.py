@@ -236,7 +236,7 @@ class TestBootstrapLayoutObjects:
 
         accordion_id = match.group(1)
 
-        assert html.count('<div class="card mb-2"') == 2
+        assert html.count('<div class="card mb-2') == 2
         assert html.count('<div class="card-header"') == 2
 
         assert html.count('data-parent="#{}"'.format(accordion_id)) == 2
