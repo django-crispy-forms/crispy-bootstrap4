@@ -3,6 +3,7 @@
 ## Next Release
 
 * Added support for Python 3.13.
+* Changed `id` for help text to align with aria-describedby attribute added by Django 5.0+.
 
 ## 2024.10 (2024-10-05)
 
