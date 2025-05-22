@@ -127,6 +127,11 @@ def test_form_show_errors_non_field_errors(settings):
             "bootstrap4/test_form_helper/"
             "test_form_show_errors_non_field_errors_true_lt50.html"
         )
+    elif django.VERSION < (5, 2):
+        expected = parse_expected(
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_true_lt52.html"
+        )
     else:
         expected = parse_expected(
             "bootstrap4/test_form_helper/"
@@ -142,6 +147,11 @@ def test_form_show_errors_non_field_errors(settings):
         expected = parse_expected(
             "bootstrap4/test_form_helper/"
             "test_form_show_errors_non_field_errors_false_lt50.html"
+        )
+    elif django.VERSION < (5, 2):
+        expected = parse_expected(
+            "bootstrap4/test_form_helper/"
+            "test_form_show_errors_non_field_errors_false_lt52.html"
         )
     else:
         expected = parse_expected(
@@ -477,6 +487,10 @@ def test_bootstrap_form_show_errors_bs4():
         expected = (
             "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt50.html"
         )
+    elif django.VERSION < (5, 2):
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt52.html"
+        )
     else:
         expected = (
             "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true.html"
@@ -486,6 +500,10 @@ def test_bootstrap_form_show_errors_bs4():
     if django.VERSION < (5, 0):
         expected = (
             "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt50.html"
+        )
+    elif django.VERSION < (5, 2):
+        expected = (
+            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt52.html"
         )
     else:
         expected = (
@@ -506,12 +524,7 @@ def test_error_text_inline(settings):
     form.is_valid()
     html = render_crispy_form(form)
 
-    help_class = "invalid-feedback"
-    help_tag_name = "div"
-
-    matches = re.findall(
-        r'<span id="error_\d_\w*" class="%s"' % help_class, html, re.MULTILINE
-    )
+    matches = re.findall(r'<span id="error_\d_\w*"', html, re.MULTILINE)
     assert len(matches) == 3
 
     form = SampleForm({"email": "invalidemail"})
@@ -520,11 +533,10 @@ def test_error_text_inline(settings):
     form.helper.error_text_inline = False
     html = render_crispy_form(form)
 
-    help_class = "invalid-feedback"
     help_tag_name = "p"
 
     matches = re.findall(
-        r'<{} id="error_\d_\w*" class="{}"'.format(help_tag_name, help_class),
+        r'<{} id="error_\d_\w*"'.format(help_tag_name),
         html,
         re.MULTILINE,
     )
@@ -541,8 +553,8 @@ def test_error_and_help_inline():
     html = render_crispy_form(form)
 
     # Check that help goes before error, otherwise CSS won't work
-    help_position = html.find('<span id="hint_id_email" class="help-inline">')
-    error_position = html.find('<p id="error_1_id_email" class="invalid-feedback">')
+    help_position = html.find('<span id="id_email_helptext" class="help-inline">')
+    error_position = html.find('<p id="error_1_id_email">')
     assert help_position < error_position
 
     # Viceversa
