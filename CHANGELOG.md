@@ -1,8 +1,9 @@
 # CHANGELOG FOR CRISPY-BOOTSTRAP4
 
-## Next Release
+## 2025.6 (2025-06-08)
 
 * Added support for Python 3.13.
+* Added support for Django 5.2.
 * Changed `id` for help text to align with aria-describedby attribute added by Django 5.0+.
 
 ## 2024.10 (2024-10-05)
