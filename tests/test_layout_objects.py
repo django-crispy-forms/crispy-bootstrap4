@@ -45,12 +45,10 @@ CONVERTERS = {
 
 
 def test_multiwidget_field():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form %}
-    """
-    )
+    """)
 
     test_form = SampleForm()
     test_form.helper = FormHelper()
@@ -76,12 +74,10 @@ def test_multiwidget_field():
 
 
 def test_field_type_hidden():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy test_form %}
-    """
-    )
+    """)
 
     test_form = SampleForm()
     test_form.helper = FormHelper()

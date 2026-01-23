@@ -38,12 +38,10 @@ def test_inputs():
     form_helper.add_input(Hidden("my-hidden", "Hidden"))
     form_helper.add_input(Button("my-button", "Button"))
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm(), "form_helper": form_helper})
     html = template.render(c)
 
@@ -72,12 +70,10 @@ def test_form_with_helper_without_layout():
     form_helper.form_action = "simpleAction"
     form_helper.form_error_title = "ERRORS"
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy testForm form_helper %}
-    """
-    )
+    """)
 
     # now we render it, with errors
     form = SampleForm({"password1": "wargame", "password2": "god"})
@@ -112,12 +108,10 @@ def test_form_show_errors_non_field_errors(settings):
     form.helper.form_show_errors = True
     form.is_valid()
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy testForm %}
-    """
-    )
+    """)
 
     # First we render with errors
     c = Context({"testForm": form})
@@ -234,12 +228,10 @@ def test_template_helper_access():
 
 
 def test_without_helper():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm()})
     html = template.render(c)
 
@@ -250,12 +242,10 @@ def test_without_helper():
 
 
 def test_formset_with_helper_without_layout():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy testFormSet formset_helper %}
-    """
-    )
+    """)
 
     form_helper = FormHelper()
     form_helper.form_id = "thisFormsetRocks"
@@ -291,12 +281,10 @@ def test_formset_with_helper_without_layout():
 
 def test_CSRF_token_POST_form():
     form_helper = FormHelper()
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     # The middleware only initializes the CSRF token when processing a real request
     # So using RequestContext or csrf(request) here does not work.
@@ -317,12 +305,10 @@ def test_CSRF_token_POST_form():
 def test_CSRF_token_GET_form():
     form_helper = FormHelper()
     form_helper.form_method = "GET"
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     c = Context(
         {

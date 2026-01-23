@@ -9,25 +9,21 @@ from .forms import SampleForm
 
 
 def test_crispy_field():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_field %}
         {% for field in form %}
             {% crispy_field field %}
         {% endfor %}
-    """
-    )
+    """)
     html = template.render(Context({"form": SampleForm()}))
     assert html.count("<input") == 8
 
 
 def test_as_crispy_errors_form_without_non_field_errors():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ form|as_crispy_errors }}
-    """
-    )
+    """)
     form = SampleForm({"password1": "god", "password2": "god"})
     form.is_valid()
 
@@ -37,12 +33,10 @@ def test_as_crispy_errors_form_without_non_field_errors():
 
 
 def test_as_crispy_errors_form_with_non_field_errors():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ form|as_crispy_errors }}
-    """
-    )
+    """)
     form = SampleForm({"password1": "god", "password2": "wargame"})
     form.is_valid()
 
@@ -54,12 +48,10 @@ def test_as_crispy_errors_form_with_non_field_errors():
 
 
 def test_as_crispy_errors_formset_without_non_form_errors():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ formset|as_crispy_errors }}
-    """
-    )
+    """)
 
     SampleFormset = formset_factory(SampleForm, max_num=1, validate_max=True)
     formset = SampleFormset()
@@ -71,12 +63,10 @@ def test_as_crispy_errors_formset_without_non_form_errors():
 
 
 def test_as_crispy_errors_formset_with_non_form_errors():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ formset|as_crispy_errors }}
-    """
-    )
+    """)
 
     SampleFormset = formset_factory(SampleForm, max_num=1, validate_max=True)
     formset = SampleFormset(
@@ -98,12 +88,10 @@ def test_as_crispy_errors_formset_with_non_form_errors():
 
 
 def test_as_crispy_field_non_field(settings):
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ field|as_crispy_field }}
-    """
-    )
+    """)
 
     c = Context({"field": "notafield"})
 
@@ -116,12 +104,10 @@ def test_as_crispy_field_non_field(settings):
 
 
 def test_as_crispy_field_bound_field():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ field|as_crispy_field }}
-    """
-    )
+    """)
 
     form = SampleForm({"password1": "god", "password2": "god"})
     form.is_valid()
@@ -135,12 +121,10 @@ def test_as_crispy_field_bound_field():
 
 
 def test_crispy_filter_with_form():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ form|crispy }}
-    """
-    )
+    """)
     c = Context({"form": SampleForm()})
     html = template.render(c)
 
@@ -150,12 +134,10 @@ def test_crispy_filter_with_form():
 
 
 def test_crispy_filter_with_formset():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ testFormset|crispy }}
-    """
-    )
+    """)
 
     SampleFormset = formset_factory(SampleForm, extra=4)
     testFormset = SampleFormset()
@@ -171,12 +153,10 @@ def test_crispy_filter_with_formset():
 
 
 def test_classes_filter():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_field %}
         {{ testField|classes }}
-    """
-    )
+    """)
 
     test_form = SampleForm()
     test_form.fields["email"].widget.attrs.update({"class": "email-fields"})
@@ -186,12 +166,10 @@ def test_classes_filter():
 
 
 def test_crispy_field_and_class_converters():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_field %}
         {% crispy_field testField 'class' 'error' %}
-    """
-    )
+    """)
     test_form = SampleForm()
     field_instance = test_form.fields["email"]
     bound_field = BoundField(test_form, field_instance, "email")
