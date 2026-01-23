@@ -1,6 +1,5 @@
 import re
 
-import django
 import pytest
 from crispy_forms import __version__
 from crispy_forms.bootstrap import (
@@ -45,12 +44,10 @@ CONVERTERS = {
 
 
 def test_multiwidget_field():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form %}
-    """
-    )
+    """)
 
     test_form = SampleForm()
     test_form.helper = FormHelper()
@@ -76,12 +73,10 @@ def test_multiwidget_field():
 
 
 def test_field_type_hidden():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy test_form %}
-    """
-    )
+    """)
 
     test_form = SampleForm()
     test_form.helper = FormHelper()
@@ -158,14 +153,7 @@ class TestBootstrapLayoutObjects:
             AppendedText("password1", "#", css_class="input-lg"),
             PrependedText("password2", "$", css_class="input-sm"),
         )
-        if django.VERSION < (5, 0):
-            expected = (
-                "bootstrap4/test_layout_objects/test_prepended_appended_text_lt50.html"
-            )
-        else:
-            expected = (
-                "bootstrap4/test_layout_objects/test_prepended_appended_text.html"
-            )
+        expected = "bootstrap4/test_layout_objects/test_prepended_appended_text.html"
         assert parse_form(test_form) == parse_expected(expected)
 
     def test_prepended_wrapper_class(self):
@@ -476,23 +464,10 @@ class TestBootstrapLayoutObjects:
         form = GroupedChoiceForm({})
         form.helper = FormHelper()
         form.helper.layout = Layout("checkbox_select_multiple")
-        if django.VERSION < (5, 0):
-            expected = (
-                "bootstrap4/test_layout_objects/"
-                "test_grouped_checkboxes_failing_lt50.html"
-            )
-        else:
-            expected = (
-                "bootstrap4/test_layout_objects/test_grouped_checkboxes_failing.html"
-            )
+        expected = "bootstrap4/test_layout_objects/test_grouped_checkboxes_failing.html"
         assert parse_form(form) == parse_expected(expected)
         form.helper.layout = Layout("radio")
-        if django.VERSION < (5, 0):
-            expected = (
-                "bootstrap4/test_layout_objects/test_grouped_radios_failing_lt50.html"
-            )
-        else:
-            expected = "bootstrap4/test_layout_objects/test_grouped_radios_failing.html"
+        expected = "bootstrap4/test_layout_objects/test_grouped_radios_failing.html"
         assert parse_form(form) == parse_expected(expected)
 
     def test_non_ascii_chars_in_container_name(self):

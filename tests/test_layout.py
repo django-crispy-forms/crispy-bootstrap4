@@ -44,12 +44,10 @@ def test_invalid_unicode_characters(settings):
     form_helper = FormHelper()
     form_helper.add_layout(Layout("españa"))
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm(), "form_helper": form_helper})
     settings.CRISPY_FAIL_SILENTLY = False
     with pytest.raises(Exception):
@@ -81,12 +79,10 @@ def test_meta_extra_fields_with_missing_fields():
     form_helper = FormHelper()
     form_helper.layout = Layout("first_name")
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context({"form": form, "form_helper": form_helper})
     html = template.render(c)
     assert "email" not in html
@@ -96,12 +92,10 @@ def test_layout_unresolved_field(settings):
     form_helper = FormHelper()
     form_helper.add_layout(Layout("typo"))
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm(), "form_helper": form_helper})
     settings.CRISPY_FAIL_SILENTLY = False
     with pytest.raises(Exception):
@@ -112,12 +106,10 @@ def test_double_rendered_field(settings):
     form_helper = FormHelper()
     form_helper.add_layout(Layout("is_company", "is_company"))
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm(), "form_helper": form_helper})
     settings.CRISPY_FAIL_SILENTLY = False
     with pytest.raises(Exception):
@@ -131,14 +123,12 @@ def test_context_pollution():
     form = ExampleForm()
     form2 = SampleForm()
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {{ form.as_ul }}
         {% crispy form2 %}
         {{ form.as_ul }}
-    """
-    )
+    """)
     c = Context({"form": form, "form2": form2})
     html = template.render(c)
 
@@ -168,23 +158,19 @@ def test_layout_fieldset_row_html_with_unicode_fieldnames():
                     css_class="rows",
                 ),
                 HTML('<a href="#" id="testLink">test link</a>'),
-                HTML(
-                    """
+                HTML("""
                     {% if flag %}{{ message }}{% endif %}
-                """
-                ),
+                """),
                 "first_name",
                 "last_name",
             ),
         )
     )
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context(
         {
             "form": SampleForm(),
@@ -208,12 +194,10 @@ def test_layout_fieldset_row_html_with_unicode_fieldnames():
 
 
 def test_change_layout_dynamically_delete_field():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     form = SampleForm()
     form_helper = FormHelper()
@@ -246,12 +230,10 @@ def test_change_layout_dynamically_delete_field():
 
 
 def test_column_has_css_classes():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     form = SampleForm()
     form_helper = FormHelper()
@@ -275,12 +257,10 @@ def test_column_has_css_classes():
 
 
 def test_bs4_column_css_classes():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     form = SampleForm()
     form_helper = FormHelper()
@@ -401,12 +381,10 @@ def test_modelformset_layout():
 
 
 def test_i18n():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form.helper %}
-    """
-    )
+    """)
     form = SampleForm()
     form_helper = FormHelper()
     form_helper.layout = Layout(
@@ -536,16 +514,10 @@ def test_use_custom_control_is_used_in_checkboxes():
         InlineCheckboxes("alphacheckboxes"),
         "numeric_multiple_checkboxes",
     )
-    if django.VERSION < (5, 0):
-        expected = (
-            "bootstrap4/test_layout/"
-            "test_use_custom_control_is_used_in_checkboxes_true_failing_lt50.html"
-        )
-    else:
-        expected = (
-            "bootstrap4/test_layout/"
-            "test_use_custom_control_is_used_in_checkboxes_true_failing.html"
-        )
+    expected = (
+        "bootstrap4/test_layout/"
+        "test_use_custom_control_is_used_in_checkboxes_true_failing.html"
+    )
     assert parse_form(form) == parse_expected(expected)
 
 
@@ -575,16 +547,10 @@ def test_use_custom_control_is_used_in_radio():
     form.helper.layout = Layout(
         "radio_select",
     )
-    if django.VERSION < (5, 0):
-        expected = (
-            "bootstrap4/test_layout/"
-            "test_use_custom_control_is_used_in_radio_true_failing_lt50.html"
-        )
-    else:
-        expected = (
-            "bootstrap4/test_layout/"
-            "test_use_custom_control_is_used_in_radio_true_failing.html"
-        )
+    expected = (
+        "bootstrap4/test_layout/"
+        "test_use_custom_control_is_used_in_radio_true_failing.html"
+    )
     assert parse_form(form) == parse_expected(expected)
 
 
