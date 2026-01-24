@@ -2,6 +2,7 @@
 
 ## Next Release (TBC)
 * Removed support for Django 4.2, 5.0 and 5.1. 
+* Confirmed support for Python 3.14.
 
 ## 2025.6 (2025-06-08)
 
