@@ -1,6 +1,5 @@
 import re
 
-import django
 import pytest
 from crispy_forms.bootstrap import (
     AppendedText,
@@ -38,12 +37,10 @@ def test_inputs():
     form_helper.add_input(Hidden("my-hidden", "Hidden"))
     form_helper.add_input(Button("my-button", "Button"))
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm(), "form_helper": form_helper})
     html = template.render(c)
 
@@ -72,12 +69,10 @@ def test_form_with_helper_without_layout():
     form_helper.form_action = "simpleAction"
     form_helper.form_error_title = "ERRORS"
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy testForm form_helper %}
-    """
-    )
+    """)
 
     # now we render it, with errors
     form = SampleForm({"password1": "wargame", "password2": "god"})
@@ -112,52 +107,28 @@ def test_form_show_errors_non_field_errors(settings):
     form.helper.form_show_errors = True
     form.is_valid()
 
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy testForm %}
-    """
-    )
+    """)
 
     # First we render with errors
     c = Context({"testForm": form})
     # Ensure those errors were rendered
-    if django.VERSION < (5, 0):
-        expected = parse_expected(
-            "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_true_lt50.html"
-        )
-    elif django.VERSION < (5, 2):
-        expected = parse_expected(
-            "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_true_lt52.html"
-        )
-    else:
-        expected = parse_expected(
-            "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_true.html"
-        )
+    expected = parse_expected(
+        "bootstrap4/test_form_helper/"
+        "test_form_show_errors_non_field_errors_true.html"
+    )
     assert parse_html(template.render(c)) == expected
 
     # Now we render without errors
     form.helper.form_show_errors = False
     c = Context({"testForm": form})
     # Ensure errors were not rendered
-    if django.VERSION < (5, 0):
-        expected = parse_expected(
-            "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_false_lt50.html"
-        )
-    elif django.VERSION < (5, 2):
-        expected = parse_expected(
-            "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_false_lt52.html"
-        )
-    else:
-        expected = parse_expected(
-            "bootstrap4/test_form_helper/"
-            "test_form_show_errors_non_field_errors_false.html"
-        )
+    expected = parse_expected(
+        "bootstrap4/test_form_helper/"
+        "test_form_show_errors_non_field_errors_false.html"
+    )
     assert parse_html(template.render(c)) == expected
 
 
@@ -234,12 +205,10 @@ def test_template_helper_access():
 
 
 def test_without_helper():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form %}
-    """
-    )
+    """)
     c = Context({"form": SampleForm()})
     html = template.render(c)
 
@@ -250,12 +219,10 @@ def test_without_helper():
 
 
 def test_formset_with_helper_without_layout():
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy testFormSet formset_helper %}
-    """
-    )
+    """)
 
     form_helper = FormHelper()
     form_helper.form_id = "thisFormsetRocks"
@@ -291,12 +258,10 @@ def test_formset_with_helper_without_layout():
 
 def test_CSRF_token_POST_form():
     form_helper = FormHelper()
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     # The middleware only initializes the CSRF token when processing a real request
     # So using RequestContext or csrf(request) here does not work.
@@ -317,12 +282,10 @@ def test_CSRF_token_POST_form():
 def test_CSRF_token_GET_form():
     form_helper = FormHelper()
     form_helper.form_method = "GET"
-    template = Template(
-        """
+    template = Template("""
         {% load crispy_forms_tags %}
         {% crispy form form_helper %}
-    """
-    )
+    """)
 
     c = Context(
         {
@@ -483,32 +446,10 @@ def test_bootstrap_form_show_errors_bs4():
     )
     form.is_valid()
     form.helper.form_show_errors = True
-    if django.VERSION < (5, 0):
-        expected = (
-            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt50.html"
-        )
-    elif django.VERSION < (5, 2):
-        expected = (
-            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true_lt52.html"
-        )
-    else:
-        expected = (
-            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true.html"
-        )
+    expected = "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_true.html"
     assert parse_form(form) == parse_expected(expected)
     form.helper.form_show_errors = False
-    if django.VERSION < (5, 0):
-        expected = (
-            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt50.html"
-        )
-    elif django.VERSION < (5, 2):
-        expected = (
-            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false_lt52.html"
-        )
-    else:
-        expected = (
-            "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false.html"
-        )
+    expected = "bootstrap4/test_form_helper/bootstrap_form_show_errors_bs4_false.html"
     assert parse_form(form) == parse_expected(expected)
 
 
