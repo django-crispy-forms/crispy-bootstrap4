@@ -1,4 +1,3 @@
-import django
 import pytest
 from crispy_forms import __version__
 from crispy_forms.bootstrap import Field, InlineCheckboxes, UneditableField
