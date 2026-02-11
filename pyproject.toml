@@ -1,14 +1,12 @@
 [build-system]
 build-backend = "setuptools.build_meta"
-requires = [
-  "setuptools>=61",
-]
+requires = ["setuptools>=77.0.3"]
 
 [project]
 name="crispy-bootstrap4"
 description="Bootstrap4 template pack for django-crispy-forms"
 readme = "README.md"
-license = {text = "MIT"}
+license = "MIT"
 authors = [{name = "David Smith"}]
 requires-python = ">=3.10"
 classifiers=[
@@ -18,7 +16,6 @@ classifiers=[
   "Framework :: Django :: 5.2",
   "Framework :: Django :: 6.0",
   "Operating System :: OS Independent",
-  "License :: OSI Approved :: MIT License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
